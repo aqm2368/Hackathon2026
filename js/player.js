@@ -5,4 +5,6 @@ export class Player {
         this.leftEar = this.rightEar = true;
         this.holding = false;
     }
+
+    
 }
