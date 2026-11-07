@@ -87,7 +87,9 @@ export class BodyPart
             && this.#isSolderingNeeded == false
             && this.#isForeignPresent == false)
         {
-            return true; //the part is fixed 
+            // the part is fixed 
+            // the class that called validation should now bring up a button that sends the customer on their way 
+            return true; 
         }
 
         return false; 
