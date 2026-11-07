@@ -5,19 +5,16 @@ export class Bolt {
     positionY;
     isRusted;
     sprite;
-    img; 
+    img;
     rustedBoltFile; //define
     normalBoltFile;// define
+    
+    
 
 
 
     constructor(isRusted, positionX, positionY, location) {
-        //load sprite once obj is made
-        img = isRusted ? this.rustedBoltFile : this.normalBoltFile;
-        const texture = Assets.load(img);
-        const sprite = new Sprite(texture);
-        sprite.anchor.set(0.5); //centering
-        sprite.position.set(positionX, positionY);
+        //load sprite once obj is made, if rusted
 
 
 
@@ -25,10 +22,23 @@ export class Bolt {
         this.positionX = positionX;
         this.positionY = positionY;
         this.location = location;
+
+        img = isRusted ? this.rustedBoltFile : this.normalBoltFile;
+
+        const texture = Assets.load(img);
+        const sprite = new Sprite(texture);
+        sprite.anchor.set(0.5); //centering
+        sprite.position.set(positionX, positionY);
+
+
+
+
     }
     newLocation() {
         if (this.isRusted) {
             location = 'tray';
+            this.sprite.position.set(trayLocationX + offsetX, trayLocationY + offsetX) ;
+
 
 
         }
