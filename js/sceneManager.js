@@ -6,11 +6,11 @@ export class WorkBench extends PIXI.Container {
         this.sprite = new PIXI.Sprite({
             texture: workBenchBackground,
             anchor: 0.5,
-            position: { x: 0, y: 0 },
-            scale: { x: 0.7, y: 1.7 },
-            rotation: Math.PI / 2
+            position: { x: 0, y: -100 },
+            scale: { x: 0.5, y: 0.5 },
+            rotation: 0
         });
-        this.position.set(900, 460);
+        this.position.set(900, 350);
         this.container = new PIXI.Container;
         this.addChild(this.sprite);
         this.addChild(this.container);
