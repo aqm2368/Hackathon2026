@@ -5,7 +5,7 @@ export class cover extends Container {
     let isRusted;
     let coverSprite;
     let coverImg;
-    let rustedCoverFile; //define
+    let rustedCoverFile; =//img //define
     let normalCoverFile;// define
 
 
@@ -26,7 +26,8 @@ export class cover extends Container {
         bolt.boltSprite.x = boltPositon();
 
     }
-    boltPositon() {
+    
+    function boltPositon() {
         const length = this.coverBolts.length;
 
         switch (role) {
@@ -49,5 +50,6 @@ export class cover extends Container {
         this.removeChild(bolt.boltSprite);
         return this.bolts.pop; //removes bolt from screen and returns it.  
     }
-}
 
+
+}
