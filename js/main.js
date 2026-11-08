@@ -18,7 +18,10 @@ export const textures = await PIXI.Assets.load([
     '../assets/sprites/tray.png',
     '../assets/sprites/click_cursor.png',
     '../assets/sprites/default_cursor.png',
-    '../assets/sprites/screw_cursor.png'
+    '../assets/sprites/screw_cursor.png',
+    '../assets/sprites/wires_a.png',
+    '../assets/sprites/wires_b.png',
+    '../assets/sprites/wires_c.png'
 ]);
 
 (async () => {
@@ -43,7 +46,7 @@ export const textures = await PIXI.Assets.load([
         textures['../assets/sprites/empty_bucket.png'],
         textures['../assets/sprites/bodyPlaye.png'],
         textures['../assets/sprites/tray.png'],
-        textures['../assets/sprites/tray.png']
+        textures['../assets/sprites/empty_bucket.png']
     );
     console.log(workBench);
     pixiCanvas.stage.addChild(workBench);

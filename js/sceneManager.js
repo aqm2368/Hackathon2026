@@ -1,4 +1,4 @@
-import { BodyPlate, BoltsBox, ScrewdriverTool, SolderingTool, Tray } from "./tools.js";
+import { BodyPlate, BoltsBox, ScrewdriverTool, SolderingTool, Tray, Wires } from "./tools.js";
 
 export class WorkBench extends PIXI.Container {
     constructor(workBenchBackground, background, screwdriver, soldering, boltsBox, bodyPlate, tray, wires) {
@@ -10,7 +10,7 @@ export class WorkBench extends PIXI.Container {
             scale: { x: 3, y: 1.5 },
             rotation: 0
         });
-        this.position.set(740, 500);
+        this.position.set(740, 460);
         this.container = new PIXI.Container;
         this.addChild(this.sprite);
         this.addChild(this.container);
@@ -20,11 +20,12 @@ export class WorkBench extends PIXI.Container {
         this.boltsBox = new BoltsBox(background, boltsBox);
         this.bodyPlate = new BodyPlate(bodyPlate);
         this.tray = new Tray(tray);
-        this.wires;
+        this.wires = new Wires(wires);
 
         this.container.addChild(this.screwdriver);
         this.container.addChild(this.soldering);
         this.container.addChild(this.boltsBox);
+        this.container.addChild(this.wires);
         // this.container.addChild(this.bodyPlate);
         // this.container.addChild(this.tray);
     }

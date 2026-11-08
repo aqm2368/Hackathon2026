@@ -11,6 +11,7 @@ export class Tools extends PIXI.Container {
             scale: { x: 0.5, y: 0.33 },
             rotation: 0
         });
+        this.background.alpha = 0;
         this.container = new PIXI.Container();
         this.addChild(this.background);
         this.addChild(this.container);
@@ -24,11 +25,10 @@ export class Tools extends PIXI.Container {
         this.background.eventMode = 'static';
         this.background.on('pointerdown', (e) => {
             this.onClick();
-            this.updateCursor();
+            this.updateCursor(e);
         });
         this.background.on('pointerover', (e) => {
             if(Player.tool != 'NONE') return;
-            
             Player.SetCursorTexture(textures['../assets/sprites/click_cursor.png'])
         });
         this.background.on('pointerout', (e) => {
@@ -59,7 +59,14 @@ export class Tools extends PIXI.Container {
         } else {
             texturePath = '../assets/sprites/default_cursor.png';
         }
-        Player.SetCursorTexture(textures[texturePath]);
+
+        if(e.type == 'pointerdown' && Player.tool == 'NONE') {
+            texturePath = '../assets/sprites/click_cursor.png'
+        }
+
+        if(e.type == 'pointerout' || e.type == 'pointerdown') {
+            Player.SetCursorTexture(textures[texturePath]);
+        }
     }
 }
 
@@ -127,6 +134,87 @@ export class BoltsBox extends Tools {
 
     onClick() {
         //ADD A BOLT WHERE POSSIBLE
+        console.log("WORKING");
+    }
+}
+
+export class Wires extends PIXI.Container {
+    constructor(backgroundTexture) {
+        super()
+        this.background = new PIXI.Sprite({
+            texture: backgroundTexture,
+            anchor: {x: 0.5, y: 0.5},
+            position: {x: 0, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 0
+        });
+        this.container = new PIXI.Container();
+        this.addChild(this.background);
+        this.addChild(this.container);
+
+        this.wiresA = new PIXI.Sprite({
+            texture: textures['../assets/sprites/wires_a.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: -50, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 0
+        });
+        this.wiresB = new PIXI.Sprite({
+            texture: textures['../assets/sprites/wires_b.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 0, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 30
+        });
+        this.wiresC = new PIXI.Sprite({
+            texture: textures['../assets/sprites/wires_c.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 50, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 0
+        });
+        this.container.addChild(this.wiresA);
+        this.container.addChild(this.wiresB);
+        this.container.addChild(this.wiresC);
+
+        this.background.on('pointerdown', (e) => {
+            this.onClick();
+            this.updateCursor();
+        });
+        this.background.on('pointerover', (e) => {
+            if(Player.tool != 'NONE') return;
+            
+            Player.SetCursorTexture(textures['../assets/sprites/click_cursor.png'])
+        });
+        this.background.on('pointerout', (e) => {
+            this.updateCursor(e);
+        });
+        
+        this.name = "WIRES";
+        this.cursorPath = '../assets/sprites/screw_cursor.png';
+        this.texturePath = '../assets/sprites/empty_bucket.png';
+
+        // SET ORIGIN HERE
+        this.position.set(400, 160);
+    }
+
+    onClick() {
+        //PUT WIRE WHERE POSSIBLE
+    }
+
+    updateCursor(e) {
+        let texturePath;
+        if(Player.tool == "SCREWDRIVER") {
+            texturePath = '../assets/sprites/screw_cursor.png';
+        } else if (Player.tool == "SOLDERING") {
+            texturePath = '../assets/sprites/screw_cursor.png';
+        } else {
+            texturePath = '../assets/sprites/default_cursor.png';
+        }
+        
+        // if(e.type == 'pointerout') {
+            Player.SetCursorTexture(textures[texturePath]);
+        // }
     }
 }
 
