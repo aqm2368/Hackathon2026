@@ -1,3 +1,4 @@
+import { BodyPart } from "./bodypart.js";
 import { textures } from "./main.js";
 import { Player } from "./player.js";
 
@@ -155,22 +156,22 @@ export class Wires extends PIXI.Container {
         this.wiresA = new PIXI.Sprite({
             texture: textures['../assets/sprites/red_wire_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
-            position: { x: -50, y: 0 },
-            scale: { x: 1, y: 1 },
+            position: { x: -65, y: 0 },
+            scale: { x: 0.16, y: 0.2 },
             rotation: 0
         });
         this.wiresB = new PIXI.Sprite({
             texture: textures['../assets/sprites/white_wire_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
             position: { x: 0, y: 0 },
-            scale: { x: 0.2, y: 0.2 },
-            rotation: 30
+            scale: { x: 0.16, y: 0.2 },
+            rotation: 0
         });
         this.wiresC = new PIXI.Sprite({
             texture: textures['../assets/sprites/black_wire_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
-            position: { x: 50, y: 0 },
-            scale: { x: 0.2, y: 0.2 },
+            position: { x: 65, y: 0 },
+            scale: { x: 0.16, y: 0.2 },
             rotation: 0
         });
         this.container.addChild(this.wiresA);
@@ -262,6 +263,78 @@ export class BodyPlate extends PIXI.Container {
             rotation: 0
         });
         this.addChild(this.sprite);
+
+        this.bodyPart = new BodyPart("Arm", 2, 0, 0, 2, 2, 2);
+    }
+}
+
+export class Panel extends PIXI.Container {
+    constructor() {
+        super();
+        this.sprite = new PIXI.Sprite({
+            texture: textures['../assets/sprites/base_arm.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: -100, y: 10 },
+            scale: { x: 0.3, y: 0.3 },
+            rotation: 0
+        });
+        this.addChild(this.sprite);
+
+        this.screw1 = new PIXI.Sprite({
+            texture: textures['../assets/sprites/screw.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: -50, y: -50 },
+            scale: { x: 0.3, y: 0.3 },
+            rotation: 0
+        });
+        this.screw2 = new PIXI.Sprite({
+            texture: textures['../assets/sprites/screw.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 50, y: -50 },
+            scale: { x: 0.3, y: 0.3 },
+            rotation: 0
+        });
+        this.screw3 = new PIXI.Sprite({
+            texture: textures['../assets/sprites/screw.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: -50, y: 50 },
+            scale: { x: 0.3, y: 0.3 },
+            rotation: 0
+        });
+        this.screw4 = new PIXI.Sprite({
+            texture: textures['../assets/sprites/screw.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 50, y: 50 },
+            scale: { x: 0.3, y: 0.3 },
+            rotation: 0
+        });
+
+        this.addChild(this.screw1);
+        this.addChild(this.screw2);
+        this.addChild(this.screw3);
+        this.addChild(this.screw4);
+        this.screw1.on("pointerclick", (e) => {
+            if(Player.tool == 'SCREWDRIVER') {
+                this.removeChild(this.screw1);
+            }
+        })
+        this.screw2.on("pointerclick", (e) => {
+            if(Player.tool == 'SCREWDRIVER') {
+                this.removeChild(this.screw2);
+            }
+        })
+        this.screw3.on("pointerclick", (e) => {
+            if(Player.tool == 'SCREWDRIVER') {
+                this.removeChild(this.screw3);
+            }
+        })
+        this.screw4.on("pointerclick", (e) => {
+            if(Player.tool == 'SCREWDRIVER') {
+                this.removeChild(this.screw4);
+            }
+        })
+
+
     }
 }
 
