@@ -1,6 +1,10 @@
-/* #pixi-canvas {
+.pixi-container {
     
-} */
+}
+
+.pixi-container > canvas {
+    
+}
 
 .press-start-2p-regular {
   font-family: "Press Start 2P", system-ui;
