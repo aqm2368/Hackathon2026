@@ -1,19 +1,20 @@
-import { Wires } from "./wires";
+import { Wire } from "./wire";
 
+//handle positioning 
 export class BodyPart
 {
     // === Variables === 
     //# is private 
     #s_name; 
-    //severity; //low severity = 1 
-    //#isFixed;  
     bolts = []; //list of bolt objects 
     wires = []; //list of wire objects 
     foreign = []; 
+    panel; //panel class 
     #areBoltsRusty; 
     #isSolderingNeeded; 
     #areBoltsMissing; 
     #isForeignPresent; 
+    //sprite variable 
 
     // === Properties === 
     set BoltRust(value)
@@ -55,17 +56,39 @@ export class BodyPart
 
     // === Constructor ===
     //must include body part name, how many wires, foreign objects, and bolts are in the body part you're making 
-    constructor(name, i_wireAmount, i_foreignAmount, i_boltAmount){
+    constructor(name, i_wireAmount, i_foreignAmount, i_rustyBoltAmount, i_missingBoltAmount){
         this.#s_name = name; 
-        //this.severity = 1; //low severity 
-        //this.#isFixed = false; 
-        this.#areBoltsRusty = false; 
-        this.#isSolderingNeeded = false;
-        this.#areBoltsMissing = false; 
+        if(i_rustyBoltAmount == 0)
+        {
+            this.#areBoltsRusty = false; 
+        } else {
+            this.#areBoltsRusty = true; 
+        }
+
+        if(i_foreignAmount == 0)
+        {
+            this.#isForeignPresent = false; 
+        } else {
+            this.#isForeignPresent = true; 
+        }
+
+        if(i_missingBoltAmount == 0)
+        {
+            this.#areBoltsMissing = false; 
+        } else {
+            this.#areBoltsMissing = true; 
+        }
+
+        if(i_wireAmount == 0)
+        {
+            this.#isSolderingNeeded = false; 
+        } else {
+            this.#isSolderingNeeded = true; 
+        }
 
         for(let i = 0; i < i_wireAmount; i++)
         {
-            this.wires.push(new Wires); 
+            this.wires.push(new Wire); 
         } 
 
         for(let i = 0; i < i_foreignAmount; i++)
@@ -77,9 +100,14 @@ export class BodyPart
         {
             this.bolts.push(new Bolts); 
         }
+        //this.panel = new Panel(bolts[]); 
     }
 
     // === Methods === 
+    //LoadSprite()?
+    
+    //Positions() 
+
     BoolValidation() //acts as my isFixed; validates whether the player is done with fixing the object (true) or not 
     {
         if(this.#areBoltsRusty == false 
