@@ -6,11 +6,11 @@ export class WorkBench extends PIXI.Container {
         this.sprite = new PIXI.Sprite({
             texture: workBenchBackground,
             anchor: 0.5,
-            position: { x: 0, y: -100 },
-            scale: { x: 0.5, y: 0.5 },
+            position: { x: 0, y: -160 },
+            scale: { x: 5, y: 2 },
             rotation: 0
         });
-        this.position.set(900, 350);
+        this.position.set(950, 400);
         this.container = new PIXI.Container;
         this.addChild(this.sprite);
         this.addChild(this.container);
@@ -21,13 +21,14 @@ export class WorkBench extends PIXI.Container {
         this.bodyPlate = new BodyPlate(bodyPlate);
         this.tray = new Tray(tray);
         this.wires = new Wires(wires);
+        this.bodyPlate = new BodyPlate();
 
         this.container.addChild(this.screwdriver);
         this.container.addChild(this.soldering);
         this.container.addChild(this.boltsBox);
         this.container.addChild(this.wires);
-        // this.container.addChild(this.bodyPlate);
-        // this.container.addChild(this.tray);
+        this.container.addChild(this.bodyPlate);
+        this.container.addChild(this.tray);
     }
 }
 
