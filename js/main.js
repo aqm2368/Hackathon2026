@@ -20,8 +20,9 @@ export const textures = await PIXI.Assets.load([
     '../assets/sprites/default_cursor.png',
     '../assets/sprites/screw_cursor.png',
     '../assets/sprites/wires_a.png',
+    '../assets/sprites/surgery_table.png',
     '../assets/sprites/wires_b.png',
-    '../assets/sprites/wires_c.png'
+    '../assets/sprites/wires_c.png',
 ]);
 
 (async () => {
@@ -39,7 +40,7 @@ export const textures = await PIXI.Assets.load([
     console.log(Player);
 
     workBench = new WorkBench(
-        textures['../assets/sprites/rectangle.png'],
+        textures['../assets/sprites/surgery_table.png'],
         textures['../assets/sprites/toolBackground.png'],
         textures['../assets/sprites/screwdriver.png'],
         textures['../assets/sprites/soldering.png'],

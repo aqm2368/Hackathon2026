@@ -177,16 +177,45 @@ export class Wires extends PIXI.Container {
         this.container.addChild(this.wiresB);
         this.container.addChild(this.wiresC);
 
-        this.background.on('pointerdown', (e) => {
+        this.wiresA.eventMode = 'static'
+        this.wiresA.on('pointerdown', (e) => {
             this.onClick();
-            this.updateCursor();
+            this.updateCursor(e);
         });
-        this.background.on('pointerover', (e) => {
+        this.wiresA.on('pointerover', (e) => {
             if(Player.tool != 'NONE') return;
             
             Player.SetCursorTexture(textures['../assets/sprites/click_cursor.png'])
         });
-        this.background.on('pointerout', (e) => {
+        this.wiresA.on('pointerout', (e) => {
+            this.updateCursor(e);
+        });
+
+        this.wiresB.eventMode = 'static'
+        this.wiresB.on('pointerdown', (e) => {
+            this.onClick();
+            this.updateCursor(e);
+        });
+        this.wiresB.on('pointerover', (e) => {
+            if(Player.tool != 'NONE') return;
+            
+            Player.SetCursorTexture(textures['../assets/sprites/click_cursor.png'])
+        });
+        this.wiresB.on('pointerout', (e) => {
+            this.updateCursor(e);
+        });
+
+        this.wiresC.eventMode = 'static'
+        this.wiresC.on('pointerdown', (e) => {
+            this.onClick();
+            this.updateCursor(e);
+        });
+        this.wiresC.on('pointerover', (e) => {
+            if(Player.tool != 'NONE') return;
+            
+            Player.SetCursorTexture(textures['../assets/sprites/click_cursor.png'])
+        });
+        this.wiresC.on('pointerout', (e) => {
             this.updateCursor(e);
         });
         
@@ -199,7 +228,7 @@ export class Wires extends PIXI.Container {
     }
 
     onClick() {
-        //PUT WIRE WHERE POSSIBLE
+        //SET WIRES
     }
 
     updateCursor(e) {
@@ -211,10 +240,14 @@ export class Wires extends PIXI.Container {
         } else {
             texturePath = '../assets/sprites/default_cursor.png';
         }
-        
-        // if(e.type == 'pointerout') {
+
+        if(e.type == 'pointerdown' && Player.tool == 'NONE') {
+            texturePath = '../assets/sprites/click_cursor.png'
+        }
+
+        if(e.type == 'pointerout' || e.type == 'pointerdown') {
             Player.SetCursorTexture(textures[texturePath]);
-        // }
+        }
     }
 }
 
