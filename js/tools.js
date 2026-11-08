@@ -55,7 +55,7 @@ export class Tools extends PIXI.Container {
         if(Player.tool == "SCREWDRIVER") {
             texturePath = '../assets/sprites/screw_cursor.png';
         } else if (Player.tool == "SOLDERING") {
-            texturePath = '../assets/sprites/screw_cursor.png';
+            texturePath = '../assets/sprites/solder_cursor.png';
         } else {
             texturePath = '../assets/sprites/default_cursor.png';
         }
@@ -87,7 +87,7 @@ export class ScrewdriverTool extends Tools {
         this.texturePath = '../assets/sprites/screwdriver.png';
 
         // SET ORIGIN HERE
-        this.position.set(400, -230);
+        this.position.set(360, -300);
     }
 }
 
@@ -104,11 +104,11 @@ export class SolderingTool extends Tools {
         this.container.addChild(this.sprite);
         
         this.name = "SOLDERING";
-        this.cursorPath = '../assets/sprites/screw_cursor.png';
+        this.cursorPath = '../assets/sprites/solder_cursor.png';
         this.texturePath = '../assets/sprites/soldering.png';
 
         // SET ORIGIN HERE
-        this.position.set(400, -100);
+        this.position.set(360, -160);
     }
 }
 
@@ -116,7 +116,7 @@ export class BoltsBox extends Tools {
     constructor(backgroundTexture, texture) {
         super(backgroundTexture);
         this.sprite = new PIXI.Sprite({
-            texture: texture,
+            texture: textures['../assets/sprites/bolt_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
             position: { x: 0, y: 0 },
             scale: { x: 0.2, y: 0.2 },
@@ -126,10 +126,10 @@ export class BoltsBox extends Tools {
         
         this.name = "BOLTSBOX";
         this.cursorPath = '../assets/sprites/screw_cursor.png';
-        this.texturePath = '../assets/sprites/empty_bucket.png';
+        this.texturePath = '../assets/sprites/bolt_bucket.png';
 
         // SET ORIGIN HERE
-        this.position.set(400, 30);
+        this.position.set(360, -20);
     }
 
     onClick() {
@@ -153,21 +153,21 @@ export class Wires extends PIXI.Container {
         this.addChild(this.container);
 
         this.wiresA = new PIXI.Sprite({
-            texture: textures['../assets/sprites/wires_a.png'],
+            texture: textures['../assets/sprites/red_wire_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
             position: { x: -50, y: 0 },
-            scale: { x: 0.2, y: 0.2 },
+            scale: { x: 1, y: 1 },
             rotation: 0
         });
         this.wiresB = new PIXI.Sprite({
-            texture: textures['../assets/sprites/wires_b.png'],
+            texture: textures['../assets/sprites/white_wire_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
             position: { x: 0, y: 0 },
             scale: { x: 0.2, y: 0.2 },
             rotation: 30
         });
         this.wiresC = new PIXI.Sprite({
-            texture: textures['../assets/sprites/wires_c.png'],
+            texture: textures['../assets/sprites/black_wire_bucket.png'],
             anchor: {x: 0.5, y: 0.5},
             position: { x: 50, y: 0 },
             scale: { x: 0.2, y: 0.2 },
@@ -224,7 +224,7 @@ export class Wires extends PIXI.Container {
         this.texturePath = '../assets/sprites/empty_bucket.png';
 
         // SET ORIGIN HERE
-        this.position.set(400, 160);
+        this.position.set(360, 120);
     }
 
     onClick() {
@@ -252,15 +252,16 @@ export class Wires extends PIXI.Container {
 }
 
 export class BodyPlate extends PIXI.Container {
-    constructor(texture) {
+    constructor() {
         super();
         this.sprite = new PIXI.Sprite({
-            texture: texture,
+            texture: textures['../assets/sprites/surgery_table.png'],
             anchor: {x: 0.5, y: 0.5},
-            position: { x: 0, y: 0 },
-            scale: { x: 0.5, y: 0.5 },
+            position: { x: -150, y: -150 },
+            scale: { x: 0.5, y: 0.4 },
             rotation: 0
         });
+        this.addChild(this.sprite);
     }
 }
 
@@ -268,12 +269,13 @@ export class Tray extends PIXI.Container {
     constructor(texture) {
         super();
         this.sprite = new PIXI.Sprite({
-            texture: texture,
+            texture: textures['../assets/sprites/tray.png'],
             anchor: {x: 0.5, y: 0.5},
-            position: { x: 0, y: 0 },
-            scale: { x: 0.5, y: 0.5 },
+            position: { x: -750, y: -50 },
+            scale: { x: 0.3, y: 0.4 },
             rotation: 0
         });
+        this.addChild(this.sprite);
 
         this.sprite.eventMode = 'static';
         this.sprite.on('pointerover', (e) => {
