@@ -12,7 +12,7 @@ let player = null;
     await app.init({ background: '#1099bb', resizeTo: window });
 
     // Then adding the application's canvas to the DOM body.
-    document.body.appendChild(app.canvas);
+    document.querySelector(".pixi-container").appendChild(app.canvas);
     pixiCanvas = app;
 
     player = new Player();
