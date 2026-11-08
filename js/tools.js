@@ -1,0 +1,165 @@
+import { textures } from "./main.js";
+import { Player } from "./player.js";
+
+export class Tools extends PIXI.Container {
+    constructor(backgroundTexture) {
+        super()
+        this.background = new PIXI.Sprite({
+            texture: backgroundTexture,
+            anchor: {x: 0.5, y: 0.5},
+            position: {x: 0, y: 0 },
+            scale: { x: 0.5, y: 0.33 },
+            rotation: 0
+        });
+        this.container = new PIXI.Container();
+        this.addChild(this.background);
+        this.addChild(this.container);
+
+        this.sprite;
+        this.inUse = false; 
+        this.name = '';
+        this.cursorPath;
+        this.texturePath;
+
+        this.background.eventMode = 'static';
+        this.background.on('pointerdown', (e) => {
+            this.onClick();
+            this.updateCursor();
+        });
+        this.background.on('pointerover', (e) => {
+            if(Player.tool != 'NONE') return;
+            
+            Player.SetCursorTexture(textures['../assets/sprites/click_cursor.png'])
+        });
+        this.background.on('pointerout', (e) => {
+            this.updateCursor(e);
+        });
+    }
+
+    onClick() {
+        if(Player.tool != "NONE" && Player.tool != this.name) return;
+
+        this.inUse = !this.inUse;
+        if(this.inUse) {
+            Player.tool = this.name;
+            this.sprite.texture = textures['../assets/sprites/empty_bucket.png'];
+        }
+        else {
+            Player.tool = "NONE";
+            this.sprite.texture = textures[this.texturePath];
+        }
+    }
+
+    updateCursor(e) {
+        let texturePath;
+        if(Player.tool == "SCREWDRIVER") {
+            texturePath = '../assets/sprites/screw_cursor.png';
+        } else if (Player.tool == "SOLDERING") {
+            texturePath = '../assets/sprites/screw_cursor.png';
+        } else {
+            texturePath = '../assets/sprites/default_cursor.png';
+        }
+        Player.SetCursorTexture(textures[texturePath]);
+    }
+}
+
+export class ScrewdriverTool extends Tools {
+    constructor(backgroundTexture, texture) {
+        super(backgroundTexture);
+        this.sprite = new PIXI.Sprite({
+            texture: texture,
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 0, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 0
+        });
+        this.container.addChild(this.sprite);
+
+        this.name = "SCREWDRIVER";
+        this.cursorPath = '../assets/sprites/screw_cursor.png';
+        this.texturePath = '../assets/sprites/screwdriver.png';
+
+        // SET ORIGIN HERE
+        this.position.set(400, -230);
+    }
+}
+
+export class SolderingTool extends Tools {
+    constructor(backgroundTexture, texture) {
+        super(backgroundTexture);
+        this.sprite = new PIXI.Sprite({
+            texture: texture,
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 0, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 0
+        });
+        this.container.addChild(this.sprite);
+        
+        this.name = "SOLDERING";
+        this.cursorPath = '../assets/sprites/screw_cursor.png';
+        this.texturePath = '../assets/sprites/soldering.png';
+
+        // SET ORIGIN HERE
+        this.position.set(400, -100);
+    }
+}
+
+export class BoltsBox extends Tools {
+    constructor(backgroundTexture, texture) {
+        super(backgroundTexture);
+        this.sprite = new PIXI.Sprite({
+            texture: texture,
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 0, y: 0 },
+            scale: { x: 0.2, y: 0.2 },
+            rotation: 0
+        });
+        this.container.addChild(this.sprite);
+        
+        this.name = "BOLTSBOX";
+        this.cursorPath = '../assets/sprites/screw_cursor.png';
+        this.texturePath = '../assets/sprites/empty_bucket.png';
+
+        // SET ORIGIN HERE
+        this.position.set(400, 30);
+    }
+
+    onClick() {
+        //ADD A BOLT WHERE POSSIBLE
+    }
+}
+
+export class BodyPlate extends PIXI.Container {
+    constructor(texture) {
+        super();
+        this.sprite = new PIXI.Sprite({
+            texture: texture,
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 0, y: 0 },
+            scale: { x: 0.5, y: 0.5 },
+            rotation: 0
+        });
+    }
+}
+
+export class Tray extends PIXI.Container {
+    constructor(texture) {
+        super();
+        this.sprite = new PIXI.Sprite({
+            texture: texture,
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: 0, y: 0 },
+            scale: { x: 0.5, y: 0.5 },
+            rotation: 0
+        });
+
+        this.sprite.eventMode = 'static';
+        this.sprite.on('pointerover', (e) => {
+            //ALLOW ITEM TO BE DROPPED HERE
+        });
+        this.sprite.on('pointerout', (e) => {
+            //STOP ALLOWING ITEM TO BE DROPPED
+        });
+    }
+}

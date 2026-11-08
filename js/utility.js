@@ -1,5 +1,5 @@
 export const GetCanvas = () => {
-    console.log("working");
+    // console.log("working");
     return document.querySelector("canvas");
 }
 
