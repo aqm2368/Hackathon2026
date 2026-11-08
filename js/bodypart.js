@@ -1,7 +1,9 @@
-import { Wire } from "./wire";
+import { Bolt } from "./bolts.js";
+import { textures } from "./main.js";
+import { Wire } from "./wire.js";
 
 //handle positioning 
-export class BodyPart
+export class BodyPart extends PIXI.Container
 {
     // === Variables === 
     //# is private 
@@ -14,7 +16,7 @@ export class BodyPart
     #isSolderingNeeded; 
     #areBoltsMissing; 
     #isForeignPresent; 
-    //sprite variable 
+    sprite; 
 
     // === Properties === 
     set BoltRust(value)
@@ -56,7 +58,8 @@ export class BodyPart
 
     // === Constructor ===
     //must include body part name, how many wires, foreign objects, and bolts are in the body part you're making 
-    constructor(name, i_wireAmount, i_foreignAmount, i_rustyBoltAmount, i_missingBoltAmount){
+    constructor(name, i_brokenWireAmount, i_foreignAmount, i_rustyBoltAmount, i_missingBoltAmount, i_boltAmount, i_wireAmount){
+        super();
         this.#s_name = name; 
         if(i_rustyBoltAmount == 0)
         {
@@ -79,7 +82,7 @@ export class BodyPart
             this.#areBoltsMissing = true; 
         }
 
-        if(i_wireAmount == 0)
+        if(i_brokenWireAmount == 0)
         {
             this.#isSolderingNeeded = false; 
         } else {
@@ -98,9 +101,17 @@ export class BodyPart
 
         for(let i = 0; i < i_boltAmount; i++)
         {
-            this.bolts.push(new Bolts); 
+            this.bolts.push(new Bolt(textures['../assets/sprites/screw.png'], textures['../assets/sprites/screw.png'], false, true, 12, 40, {x: 1, y: 1})); 
         }
         //this.panel = new Panel(bolts[]); 
+
+        this.sprite = (new PIXI.Sprite({
+            texture: textures['../assets/sprites/rectangle.png'],
+            anchor: {x: 0.5, y: 0.5},
+            position: { x: -750, y: -50 },
+            scale: { x: 0.3, y: 0.4 },
+            rotation: 0
+        }));
     }
 
     // === Methods === 
